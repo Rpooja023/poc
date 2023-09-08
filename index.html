@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Design</title>
+    <style>
+      /* Style for tabs */
+      .tab {
+        display: none;
+      }
+
+      /* Style for tab buttons */
+      .tab-button {
+        cursor: pointer;
+        padding: 10px 20px;
+        border: none;
+        background-color: #f1f1f1;
+      }
+
+      /* Style for active tab button */
+      .active-button {
+        background-color: #ccc;
+      }
+
+      /* Style for content in tabs */
+      .tab-content {
+        display: none;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+
+      /* Style for active tab content */
+      .active-content {
+        display: block;
+      }
+
+      /* Full-screen tab */
+      .full-screen-tab {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Tab Buttons -->
+    <button class="tab-button" onclick="openTab('tab1')">Tab 1</button>
+    <button class="tab-button" onclick="openTab('tab2')">Tab 2</button>
+
+    <!-- Tab Content -->
+    <div
+      style="height: 100vh; width: 100%"
+      id="tab1"
+      class="tab-content active-content"
+    >
+      <iframe
+        height="100%"
+        width="100%"
+        src="https://stackblitz.com/edit/progamification-sandbox-dev-jacaui?file=README.md&view=editor"
+        frameborder="0"
+      ></iframe>
+    </div>
+    <div style="height: 100vh; width: 100%" id="tab2" class="tab-content">
+      <iframe
+        height="100%"
+        width="100%"
+        src="https://progamification-sandbox-dev-jacaui.stackblitz.io"
+        frameborder="0"
+      ></iframe>
+    </div>
+
+    <!-- Full-screen Tab -->
+    <div id="fullScreenTab" class="full-screen-tab">
+      <button onclick="closeFullScreenTab()">Close Full Screen</button>
+      <h2>Full-Screen Tab Content</h2>
+      <p>This is the content of the full-screen tab.</p>
+    </div>
+
+    <script>
+      // Function to open a tab
+      function openTab(tabId) {
+        // Hide all tab content and reset button styles
+        const tabs = document.querySelectorAll(".tab-content");
+        const buttons = document.querySelectorAll(".tab-button");
+        tabs.forEach((tab) => (tab.style.display = "none"));
+        buttons.forEach((button) => button.classList.remove("active-button"));
+
+        // Show the selected tab content and set button style
+        document.getElementById(tabId).style.display = "block";
+        document
+          .querySelector(`button[data-tab="${tabId}"]`)
+          .classList.add("active-button");
+
+        // Check if the full-screen tab is being opened
+        if (tabId === "fullScreenTab") {
+          document.getElementById(tabId).style.display = "block";
+        }
+      }
+
+      // Function to open the full-screen tab
+      function openFullScreenTab() {
+        openTab("fullScreenTab");
+      }
+
+      // Function to close the full-screen tab
+      function closeFullScreenTab() {
+        document.getElementById("fullScreenTab").style.display = "none";
+      }
+
+      // Initially open Tab 1
+      openTab("tab1");
+    </script>
+  </body>
+</html>
